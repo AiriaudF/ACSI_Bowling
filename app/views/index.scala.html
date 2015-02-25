@@ -1,0 +1,48 @@
+@(game : Game)
+
+@layout("Prototype Bowling") {
+
+<h1>@game.toString</h1>
+
+    @for(p <- game.getPlayers){
+        <p>@p.getPseudo</p>
+            <table class="table table-bordered table-stripped table-hover">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Shoot 1</th>
+                        <th>Shoot 2</th>
+                        <th>Shoot 3</th>
+                        <th>Result</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(t <- p.getCurrentScoreboard.getTurns){
+                        <tr>
+                            <td>@t.getNumber</td>
+                            <td>@if(t.getShots.size>0){
+                                @t.getShots.get(0).getSkittlesFall
+                            }else{
+                                /
+                            }</td>
+                            <td>@if(t.getShots.size>1){
+                                @t.getShots.get(1).getSkittlesFall
+                            }else{
+                                /
+                            }</td>
+                            <td>@if(t.getShots.size>2){
+                                @t.getShots.get(2).getSkittlesFall
+                            }else{
+                                /
+                            }</td>
+                            <td>@t.getResult</td>
+                            <td>@t.getTotalScore</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        <hr />
+    }
+
+}
