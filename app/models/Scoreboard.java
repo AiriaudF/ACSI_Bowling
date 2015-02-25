@@ -69,9 +69,6 @@ public class Scoreboard {
     public Turn nextTurn() throws Exception {
         if(getTurnRemaining()>0){
             Turn nextTurn = new Turn(1,getTurns().size()+1,this);
-            if(getTurnRemaining()==1){
-                nextTurn = new Turn(1,getTurns().size()+1,this,3);
-            }
             this.calculScore().decreaseTurnRemaining().setCurrentTurn(nextTurn);
             return nextTurn;
         }
