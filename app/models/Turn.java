@@ -83,7 +83,7 @@ public class Turn {
         if(getShotRemaining()>0){
             //for moment we use random generated shot
             Shot s = Shot.random(this);
-//            Shot s = new Shot(1,10);
+    //        Shot s = new Shot(1,10);
             setNbSkittles(nbSkittles-s.getSkittlesFall());
             //Si j'atteint 0 quilles restantes
             if (getNbSkittles() == 0) {

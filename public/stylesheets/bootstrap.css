@@ -6564,3 +6564,26 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+.scoreboard{
+    text-align: center;
+}
+
+.panel-secondary {
+    border-color: #2ecc71;
+}
+.panel-secondary > .panel-heading {
+    color: #fff;
+    background-color: #2ecc71;
+    border-color: #2ecc71;
+}
+.panel-secondary > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: #2ecc71;
+}
+.panel-secondary > .panel-heading .badge {
+    color: #2ecc71;
+    background-color: #fff;
+}
+.panel-secondary > .panel-footer + .panel-collapse > .panel-body {
+    border-bottom-color: #2ecc71;
+}

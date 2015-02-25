@@ -50,4 +50,14 @@ public class Game {
         return null;
     }
 
+    public int getWinner() throws Exception {
+        int bestScore = 0;
+        for (Player p : players){
+            if(p.getCurrentScoreboard().getTurns().get(9).getTotalScore()>bestScore){
+                bestScore=p.getCurrentScoreboard().getTurns().get(9).getTotalScore();
+            }
+        }
+        return bestScore;
+    }
+
 }
