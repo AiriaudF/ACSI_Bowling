@@ -1,7 +1,5 @@
 package models;
 
-import play.Logger;
-
 import java.util.ArrayList;
 
 /**
@@ -83,7 +81,6 @@ public class Scoreboard {
          */
         for(int i = getTurns().size()-1; i >= 0;i--){
             Turn t = getTurns().get(i);
-            System.out.println("Tour "+t.getNumber());
             t.setResult(0);
             for(int j = 0; j < t.getShots().size();j++){
                 Shot s = t.getShots().get(j);
@@ -91,7 +88,6 @@ public class Scoreboard {
                 if(t.getState().equals(State.CLASSIC)){ // Case classic, we add skittles fall to the result
                     t.setResult(t.getResult()+s.getSkittlesFall());
                 }else if(t.getState().equals(State.SPARE)){ // Case Spare, we have to check, if we have the previous turn to calculate
-                    Logger.debug("There is a SPARE at turn "+t.getNumber());
                     if(t.getNumber()<10){
                         if(i<=getTurns().size()-2){
                             Turn previousTurn = getTurns().get(i+1);
@@ -104,7 +100,6 @@ public class Scoreboard {
                     }
                     break; //We don't need to check the next shot for SPARE
                 }else{ // Case Strike is harder to calculate
-                    Logger.debug("There is a STRIKE at turn "+t.getNumber());
                     if(t.getNumber()<10){
                         if(i==getTurns().size()-1) { // if we don't have previous shot, we set to 10
                             t.setResult(10);

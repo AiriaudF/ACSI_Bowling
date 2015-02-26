@@ -10,6 +10,7 @@ public class Game {
     private int id;
     private Date date;
     private ArrayList<Player> players;
+    private int currentTurnNumber = 0;
 
     public Game(int id) {
         this.id = id;
@@ -31,6 +32,15 @@ public class Game {
         return id;
     }
 
+    public int getCurrentTurnNumber() {
+        return currentTurnNumber;
+    }
+
+    public Game increaseCurrentTurn() {
+        this.currentTurnNumber++;
+        return this;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -47,7 +57,25 @@ public class Game {
     }
 
     public Player getNextPlayer(){
-        return null;
+        for(Player p : getPlayers()){
+            try {
+                if(p.getCurrentScoreboard().getCurrentTurn().getNumber()== getCurrentTurnNumber() && p.getCurrentScoreboard().getCurrentTurn().getShotRemaining()>0){
+                        return p;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        increaseCurrentTurn();
+        return getPlayers().get(0);
+    }
+
+    public boolean hasNextPlayer(){
+        boolean res = true;
+        if(getCurrentTurnNumber()>10){
+            res = false;
+        }
+        return res;
     }
 
     public int getWinner() throws Exception {
