@@ -79,50 +79,66 @@ public class Turn {
         this.totalScore = totalScore;
     }
 
-    public Shot launchBall() throws Exception {
+    public Shot launchBall(int nbSkittles) throws Exception{
         if(getShotRemaining()>0){
             //for moment we use random generated shot
-            Shot s = Shot.random(this);
-    //        Shot s = new Shot(1,10);
-            setNbSkittles(nbSkittles-s.getSkittlesFall());
-            //Si j'atteint 0 quilles restantes
-            if (getNbSkittles() == 0) {
-                //si dernier tour je lui donne plus de tire
-                if(this.getNumber()==10){
-                    if(shots.size()==0){
-                        setState(State.STRIKE);
-                        setShotRemaining(2);
-                        setNbSkittles(10);
-                    }else if(shots.size()==1){
-                        if(!getState().equals(State.STRIKE)){
-                            setState(State.SPARE);
-                        }
-                        setShotRemaining(1);
-                        setNbSkittles(10);
-                    }else{
-                        setShotRemaining(0);
-                    }
-                }else{
-                    if(shots.size()==0){ // et que c'est la premiere boule
-                        setState(State.STRIKE);
-                    }else{
-                        setState(State.SPARE);
-                    }
-                    //Je met à 0 le nombre de tire restant
-                    setShotRemaining(0);
-                }
-            }else{ // sinon je lui enleve un tour
-                setShotRemaining(getShotRemaining() - 1);
-            }
-
-            shots.add(s);
-            if(getShotRemaining()==0){
-                getScoreboard().nextTurn();
-            }
+            Shot s = new Shot(1,nbSkittles);
+            //        Shot s = new Shot(1,10);
+            launchBallControl(s);
             return s;
         }
         this.getScoreboard().nextTurn();
         throw new Exception("Aucun tir restant sur ce tour "+this.getNumber());
+    }
+
+    public Shot launchBall() throws Exception {
+        if(getShotRemaining()>0){
+            //for moment we use random generated shot
+            Shot s = Shot.random(this);
+//            Shot s = new Shot(1,10);
+            launchBallControl(s);
+            return s;
+        }
+        this.getScoreboard().nextTurn();
+        throw new Exception("Aucun tir restant sur ce tour "+this.getNumber());
+    }
+
+    private void launchBallControl(Shot s) throws Exception{
+        setNbSkittles(nbSkittles-s.getSkittlesFall());
+        //Si j'atteint 0 quilles restantes
+        if (getNbSkittles() == 0) {
+            //si dernier tour je lui donne plus de tire
+            if(this.getNumber()==10){
+                if(shots.size()==0){
+                    setState(State.STRIKE);
+                    setShotRemaining(2);
+                    setNbSkittles(10);
+                }else if(shots.size()==1){
+                    if(!getState().equals(State.STRIKE)){
+                        setState(State.SPARE);
+                    }
+                    setShotRemaining(1);
+                    setNbSkittles(10);
+                }else{
+                    setShotRemaining(0);
+                }
+            }else{
+                if(shots.size()==0){ // et que c'est la premiere boule
+                    setState(State.STRIKE);
+                }else{
+                    setState(State.SPARE);
+                }
+                //Je met à 0 le nombre de tire restant
+                setShotRemaining(0);
+            }
+        }else{ // sinon je lui enleve un tour
+            setShotRemaining(getShotRemaining() - 1);
+        }
+
+        shots.add(s);
+        if(getShotRemaining()==0){
+            getScoreboard().nextTurn();
+        }
     }
 
     public int getShotRemaining() {
