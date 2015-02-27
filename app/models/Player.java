@@ -62,4 +62,8 @@ public class Player {
         throw new Exception("Aucun scoreboard trouvé pour le joueur "+this.getPseudo()+" et pour la game "+this.getCurrentGame().toString());
     }
 
+    public boolean canShot() throws Exception {
+        return getCurrentScoreboard().getCurrentTurn().getShotRemaining()>0;
+    }
+
 }

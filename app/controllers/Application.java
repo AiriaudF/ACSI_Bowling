@@ -13,19 +13,15 @@ public class Application extends Controller {
 
         Player p1 = new Player(1,"Thomas");
         Player p2 = new Player(2,"Aurélien");
+        Player p3 = new Player(3,"Benjamin");
 
         Game game = new Game(1);
         game.addPlayer(p1);
         game.addPlayer(p2);
+        game.addPlayer(p3);
 
-        for(Player p : game.getPlayers()) {
-            try {
-                while (p.getCurrentScoreboard().getTurnRemaining() >= 0) {
-                    p.shot();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        while(game.hasNextPlayer()){
+            game.getNextPlayer().shot();
         }
         return ok(index.render(game));
     }
