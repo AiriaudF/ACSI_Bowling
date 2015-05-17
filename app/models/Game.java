@@ -18,8 +18,7 @@ public class Game {
         this.players = new ArrayList<>();
     }
 
-    public Game(int id, ArrayList<Player> players) {
-        this.id = id;
+    public Game(ArrayList<Player> players) {
         this.date = new Date();
         this.players = players;
         for (Player p : players){
